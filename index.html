@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>李思君 - 个人简历</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-dark: #0B1120;
+  --bg-card: rgba(255,255,255,0.04);
+  --bg-card-hover: rgba(255,255,255,0.08);
+  --glass: rgba(255,255,255,0.06);
+  --glass-border: rgba(255,255,255,0.1);
+  --text: #E8ECF4;
+  --text-dim: #8892A8;
+  --text-bright: #FFFFFF;
+  --accent: #6C8EEF;
+  --accent2: #A78BFA;
+  --accent3: #34D399;
+  --gold: #F6C754;
+  --warm: #F0A868;
+  --gradient-1: linear-gradient(135deg, #6C8EEF, #A78BFA);
+  --gradient-2: linear-gradient(135deg, #34D399, #6C8EEF);
+  --gradient-3: linear-gradient(135deg, #F6C754, #F0A868);
+  --shadow-glow: 0 0 40px rgba(108,142,239,0.15);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: 'Noto Sans SC', -apple-system, sans-serif;
+  background: var(--bg-dark);
+  color: var(--text);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ══════ Canvas Background ══════ */
+#bgCanvas {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  z-index: 0; pointer-events: none;
+}
+
+.container {
+  max-width: 1100px; margin: 0 auto; padding: 0 2rem;
+  position: relative; z-index: 1;
+}
+
+/* ══════ Hero ══════ */
+.hero {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.hero-inner {
+  text-align: center;
+  animation: heroIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes heroIn {
+  from { opacity: 0; transform: translateY(60px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+  .hero-avatar-wrap {
+    width: 120px; height: 120px; border-radius: 50%;
+    margin: 0 auto 2rem;
+    position: relative;
+    box-shadow: 0 0 60px rgba(108,142,239,0.3), 0 0 120px rgba(167,139,250,0.15);
+  }
+  .hero-avatar-wrap::after {
+    content: ''; position: absolute; inset: -4px;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, #6C8EEF, #A78BFA, #34D399, #6C8EEF);
+    z-index: -1; opacity: 0.6;
+    animation: spin 8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .hero-avatar-img {
+    width: 100%; height: 100%; border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    border: 2px solid rgba(108,142,239,0.3);
+  }
+.hero-name {
+  font-size: 3.5rem; font-weight: 900; color: var(--text-bright);
+  letter-spacing: 0.2em; margin-bottom: 0.8rem;
+}
+.hero-title {
+  font-size: 1.2rem; color: var(--accent);
+  font-weight: 400; letter-spacing: 0.15em; margin-bottom: 2rem;
+}
+.hero-contact {
+  display: flex; align-items: center; justify-content: center;
+  gap: 2rem; flex-wrap: wrap;
+}
+.contact-chip {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.5rem 1.2rem;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 100px; font-size: 0.88rem;
+  color: var(--text-dim);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s;
+}
+.contact-chip:hover {
+  background: var(--bg-card-hover);
+  border-color: rgba(255,255,255,0.2);
+  color: var(--text);
+}
+.scroll-hint {
+  position: absolute; bottom: 2rem; left: 50%;
+  transform: translateX(-50%);
+  animation: bounce 2s ease infinite;
+  color: var(--text-dim); font-size: 0.8rem;
+  display: flex; flex-direction: column; align-items: center; gap: 0.3rem;
+}
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
+}
+
+/* ══════ Section Shared ══════ */
+.section {
+  padding: 5rem 0; opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.section.visible { opacity: 1; transform: translateY(0); }
+
+.section-header {
+  display: flex; align-items: center; gap: 1.2rem;
+  margin-bottom: 3rem;
+}
+.section-icon {
+  width: 52px; height: 52px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; flex-shrink: 0;
+}
+.section-title {
+  font-size: 1.8rem; font-weight: 900; color: var(--text-bright);
+  letter-spacing: 0.05em;
+}
+.section-line {
+  flex: 1; height: 1px;
+  background: linear-gradient(90deg, var(--glass-border), transparent);
+}
+
+/* ══════ Journey — Flow Wrap ══════ */
+.journey-flow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0;
+  padding: 2rem 0 1.5rem;
+}
+
+.j-pair {
+  display: flex;
+  align-items: stretch;
+  flex-shrink: 0;
+  margin-bottom: 1rem;
+}
+
+/* Force first 5 cards + 4 connectors into one row */
+.journey-main-row {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+.journey-main-row .j-pair {
+  margin-bottom: 0;
+}
+.journey-main-row .j-dot-card {
+  width: 165px;
+}
+.journey-main-row .j-connector {
+  width: 28px;
+}
+.journey-main-row .j-info {
+  min-height: 120px;
+}
+
+.j-dot-card {
+  display: flex; flex-direction: column; align-items: center;
+  width: 180px; padding: 0 0.5rem;
+  cursor: default;
+}
+
+.j-dot {
+  width: 48px; height: 48px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; font-weight: 700; color: #fff;
+  position: relative; z-index: 2;
+  transition: all 0.4s; flex-shrink: 0;
+}
+.j-dot-card:hover .j-dot {
+  transform: scale(1.15);
+  box-shadow: 0 0 30px currentColor;
+}
+
+.j-dot.edu { background: var(--gradient-1); color: #fff; }
+.j-dot.intern { background: linear-gradient(135deg, #A78BFA, #C084FC); }
+.j-dot.work { background: var(--gradient-2); }
+.j-dot.gap { background: linear-gradient(135deg, #F0A868, #FBBF24); }
+.j-dot.current { background: var(--gradient-3); animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(246,199,84,0.3); }
+  50% { box-shadow: 0 0 40px rgba(246,199,84,0.6); }
+}
+
+.j-connector {
+  flex-shrink: 0;
+  display: flex; align-items: center;
+  width: 36px;
+  position: relative;
+}
+.j-connector::before {
+  content: ''; width: 100%; height: 2px;
+  background: linear-gradient(90deg, var(--glass-border), var(--accent));
+  opacity: 0.4;
+}
+
+.j-info {
+  text-align: center; margin-top: 1rem;
+  padding: 1rem 0.6rem;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  width: 100%;
+  transition: all 0.4s;
+  min-height: 130px;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.j-dot-card:hover .j-info {
+  background: var(--bg-card-hover);
+  border-color: rgba(255,255,255,0.15);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-glow);
+}
+
+.j-year-tag {
+  font-size: 0.65rem; font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.06em;
+  background: rgba(108,142,239,0.12);
+  padding: 0.15rem 0.6rem;
+  border-radius: 100px;
+  display: inline-block;
+  margin: 0 auto 0.5rem;
+}
+.j-name {
+  font-size: 0.9rem; font-weight: 700; color: var(--text-bright);
+  margin-bottom: 0.2rem; line-height: 1.3;
+}
+.j-sub {
+  font-size: 0.78rem; color: var(--accent2); font-weight: 500;
+  margin-bottom: 0.3rem;
+}
+.j-desc {
+  font-size: 0.72rem; color: var(--text-dim); line-height: 1.5;
+}
+
+/* Sub-items for intern inside edu */
+.j-sub-list {
+  margin-top: 0.4rem; padding-top: 0.4rem;
+  border-top: 1px solid rgba(167,139,250,0.2);
+}
+.j-sub-row {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 0.2rem 0; font-size: 0.68rem;
+}
+.j-sub-row .j-stime { color: var(--text-dim); font-weight: 600; white-space: nowrap; font-size: 0.62rem; }
+.j-sub-row .j-sname { color: var(--accent2); font-weight: 700; }
+.j-sub-row .j-sdesc { color: var(--text-dim); }
+.j-sub-inline {
+  display: flex; align-items: baseline; gap: 0.25rem;
+  justify-content: center;
+}
+
+/* ══════ Data Highlights ══════ */
+.data-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 1.2rem; margin-bottom: 3rem;
+}
+.data-card {
+  text-align: center; padding: 1.5rem 1rem;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 18px;
+  backdrop-filter: blur(12px);
+  transition: all 0.4s;
+  position: relative; overflow: hidden;
+}
+.data-card::before {
+  content: ''; position: absolute; inset: 0;
+  border-radius: 18px;
+  background: linear-gradient(135deg, transparent 40%, rgba(108,142,239,0.06) 100%);
+}
+.data-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255,255,255,0.15);
+  box-shadow: var(--shadow-glow);
+}
+.data-number {
+  font-size: 2.2rem; font-weight: 900;
+  background: var(--gradient-1);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; line-height: 1.2;
+}
+.data-unit { font-size: 0.72rem; color: var(--text-dim); }
+.data-label { font-size: 0.82rem; color: var(--text); margin-top: 0.3rem; font-weight: 500; }
+
+/* ══════ Experience Detail Cards ══════ */
+.exp-card {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 2rem 2.2rem;
+  backdrop-filter: blur(12px);
+  margin-bottom: 2rem;
+  transition: all 0.4s;
+  position: relative; overflow: hidden;
+}
+.exp-card::before {
+  content: ''; position: absolute; top: 0; left: 0;
+  width: 4px; height: 100%;
+}
+.exp-card.zjl::before { background: var(--gradient-3); }
+.exp-card.gl::before { background: var(--gradient-2); }
+.exp-card.db::before { background: var(--gradient-1); }
+
+.exp-card:hover {
+  border-color: rgba(255,255,255,0.15);
+  box-shadow: var(--shadow-glow);
+  transform: translateX(4px);
+}
+
+.exp-header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 1.2rem; flex-wrap: wrap; gap: 0.5rem;
+}
+.exp-company { font-size: 1.3rem; font-weight: 900; color: var(--text-bright); }
+.exp-role { font-size: 0.95rem; color: var(--accent); font-weight: 500; margin-top: 0.15rem; }
+.exp-date-tag {
+  font-size: 0.82rem; color: var(--accent2);
+  background: rgba(167,139,250,0.1);
+  padding: 0.3rem 1rem; border-radius: 100px;
+  font-weight: 600; white-space: nowrap;
+  border: 1px solid rgba(167,139,250,0.15);
+}
+
+.exp-sub-header {
+  font-size: 0.88rem; color: var(--text-dim);
+  margin-bottom: 1rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.exp-body { font-size: 0.92rem; color: var(--text); line-height: 1.9; }
+
+.hl-row {
+  display: flex; gap: 0.6rem; margin-bottom: 0.8rem;
+  align-items: flex-start;
+}
+.hl-row:last-child { margin-bottom: 0; }
+
+.hl-tag {
+  flex-shrink: 0;
+  padding: 0.2rem 0.7rem; border-radius: 8px;
+  font-size: 0.78rem; font-weight: 700;
+  white-space: nowrap;
+}
+.hl-tag.blue { background: rgba(108,142,239,0.12); color: var(--accent); }
+.hl-tag.green { background: rgba(52,211,153,0.12); color: var(--accent3); }
+.hl-tag.gold { background: rgba(246,199,84,0.12); color: var(--gold); }
+.hl-tag.purple { background: rgba(167,139,250,0.12); color: var(--accent2); }
+
+.hl-text { color: var(--text); line-height: 1.8; }
+.hl-text strong { color: var(--gold); font-weight: 700; }
+
+.exp-tags { margin-top: 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.exp-pill {
+  font-size: 0.72rem; padding: 0.25rem 0.8rem;
+  border-radius: 100px; font-weight: 600;
+  border: 1px solid var(--glass-border);
+  color: var(--text-dim); background: var(--glass);
+  transition: all 0.3s;
+}
+.exp-pill:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ══════ Skills ══════ */
+.skill-grid {
+  display: flex; flex-wrap: wrap; gap: 0.8rem;
+  justify-content: center;
+}
+.skill-chip {
+  padding: 0.6rem 1.4rem;
+  border-radius: 100px; font-size: 0.88rem; font-weight: 500;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  color: var(--text);
+  backdrop-filter: blur(8px);
+  transition: all 0.3s; cursor: default;
+}
+.skill-chip:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(108,142,239,0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(108,142,239,0.15);
+}
+
+/* ══════ Footer ══════ */
+.footer {
+  text-align: center; padding: 3rem 0;
+  color: var(--text-dim); font-size: 0.82rem;
+  border-top: 1px solid var(--glass-border);
+}
+
+/* ══════ Nav Dots ══════ */
+.nav-dots {
+  position: fixed; right: 20px; top: 50%;
+  transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 12px;
+  z-index: 100;
+}
+.nav-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  border: none; cursor: pointer;
+  transition: all 0.3s;
+}
+.nav-dot.active {
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent);
+  transform: scale(1.3);
+}
+
+/* ══════ Responsive ══════ */
+@media (max-width: 768px) {
+  .hero-name { font-size: 2.2rem; }
+  .hero-contact { gap: 0.8rem; }
+  .contact-chip { font-size: 0.78rem; padding: 0.4rem 0.8rem; }
+  .data-grid { grid-template-columns: repeat(2, 1fr); }
+  .exp-card { padding: 1.5rem; }
+  .j-dot-card { width: 150px; }
+  .journey-main-row .j-dot-card { width: 135px; }
+  .journey-main-row .j-connector { width: 16px; }
+  .nav-dots { right: 10px; }
+  .section { padding: 3rem 0; }
+}
+
+@media (max-width: 480px) {
+  .container { padding: 0 1.2rem; }
+  .hero-name { font-size: 1.8rem; letter-spacing: 0.1em; }
+  .j-dot-card { width: 130px; }
+  .j-info { min-height: 110px; padding: 0.8rem 0.5rem; }
+  .journey-main-row { flex-wrap: wrap; }
+  .journey-main-row .j-dot-card { width: 140px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Particle Canvas -->
+<canvas id="bgCanvas"></canvas>
+
+<!-- Nav Dots -->
+<nav class="nav-dots" id="navDots">
+  <button class="nav-dot active" data-section="hero" title="顶部"></button>
+  <button class="nav-dot" data-section="journey" title="历程"></button>
+  <button class="nav-dot" data-section="experience" title="经历"></button>
+  <button class="nav-dot" data-section="skills" title="技能"></button>
+</nav>
+
+<!-- ═══════════ Hero ═══════════ -->
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <div class="hero-avatar-wrap">
+      <img class="hero-avatar-img" src="avatar.jpg" alt="李思君">
+    </div>
+    <h1 class="hero-name">李 思 君</h1>
+    <div class="hero-contact">
+      <span class="contact-chip">📞 18785579167</span>
+      <span class="contact-chip">✉️ lisijun666@outlook.com</span>
+      <span class="contact-chip">♂ 男 · 出生日期1996年2月</span>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>向下探索</span>
+    <span>↓</span>
+  </div>
+</section>
+
+<!-- ═══════════ Journey ═══════════ -->
+<section class="section" id="journey">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon" style="background:var(--gradient-1);">🗺️</div>
+      <h2 class="section-title">成长历程</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="journey-flow">
+
+      <!-- Main row: 5 cards in one line -->
+      <div class="journey-main-row">
+
+      <!-- 2014-2018 本科 -->
+      <div class="j-pair">
+        <div class="j-dot-card">
+          <div class="j-dot edu">🎓</div>
+          <div class="j-info">
+            <span class="j-year-tag">2014.09-2018.06</span>
+            <div class="j-name">本科 · 中国劳动关系学院</div>
+            <div class="j-sub">人力资源管理 · 学士学位</div>
+            <div class="j-desc">学生会记者 · 竞赛三等奖 · 话剧一等奖 · 演讲二等奖</div>
+            <div class="j-sub-list">
+              <div class="j-sub-row">
+                <span class="j-stime">2017.03-2017.06</span>
+                <span class="j-sub-inline"><span class="j-sname">字节跳动</span><span class="j-sdesc">HR培训实习生</span></span>
+              </div>
+              <div class="j-sub-row">
+                <span class="j-stime">2018.02-2018.06</span>
+                <span class="j-sub-inline"><span class="j-sname">滴滴出行</span><span class="j-sdesc">HR培训实习生</span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="j-connector"></div>
+      </div>
+
+      <!-- 2018-2019 硕士 -->
+      <div class="j-pair">
+        <div class="j-dot-card">
+          <div class="j-dot edu">🏛️</div>
+          <div class="j-info">
+            <span class="j-year-tag">2018.09 — 2019.11</span>
+            <div class="j-name">硕士 · 英国利物浦大学</div>
+            <div class="j-sub">人力资源管理</div>
+            <div class="j-desc">管理学院学生代表</div>
+          </div>
+        </div>
+        <div class="j-connector"></div>
+      </div>
+
+      <!-- 2020-2022 德邦 -->
+      <div class="j-pair">
+        <div class="j-dot-card">
+          <div class="j-dot work">📦</div>
+          <div class="j-info">
+            <span class="j-year-tag">2020.08 — 2022.04</span>
+            <div class="j-name">德邦物流</div>
+            <div class="j-sub">HR规划管培生</div>
+            <div class="j-desc">战略客户部 → 德邦大学 → 营业部经理</div>
+          </div>
+        </div>
+        <div class="j-connector"></div>
+      </div>
+
+      <!-- 2022-2023 格力 -->
+      <div class="j-pair">
+        <div class="j-dot-card">
+          <div class="j-dot work">⚡</div>
+          <div class="j-info">
+            <span class="j-year-tag">2022.05 — 2023.03</span>
+            <div class="j-name">格力电器</div>
+            <div class="j-sub">组织规划专员</div>
+            <div class="j-desc">培训三支柱 · 组织诊断与效能提升</div>
+          </div>
+        </div>
+        <div class="j-connector"></div>
+      </div>
+
+      <!-- 2024-至今 之江实验室 -->
+      <div class="j-pair">
+        <div class="j-dot-card">
+          <div class="j-dot work">🔬</div>
+          <div class="j-info">
+            <span class="j-year-tag">2024.11 — 至今</span>
+            <div class="j-name">之江实验室</div>
+            <div class="j-sub">人事管理办公室专员</div>
+            <div class="j-desc">人才认定 · 博士后管理 · 信息系统建设 · 联培生管理 · 人事相关工作</div>
+          </div>
+        </div>
+      </div>
+
+      </div><!-- end journey-main-row -->
+
+      <!-- 2023-2024 家庭照顾期（单独一行） -->
+      <div class="j-pair" style="width:100%;justify-content:center;">
+        <div class="j-dot-card" style="width:320px;">
+          <div class="j-dot gap">🏠</div>
+          <div class="j-info" style="min-height:auto;">
+            <span class="j-year-tag">2023.04 — 2024.10</span>
+            <div class="j-name">家庭照顾期</div>
+            <div class="j-desc" style="margin-top:0.3rem;">母亲身体原因，突然变故，导致在万科物业、浙江省医疗器械工作时间均没超2个月</div>
+            <div class="j-sub-list" style="border-top-color:rgba(240,168,104,0.3);">
+              <div class="j-sub-row" style="justify-content:flex-start;gap:0.4rem;">
+                <span class="j-sname" style="color:var(--warm);">万科物业</span>
+                <span class="j-sdesc">亚运会后勤保障、人员转正答辩评估</span>
+              </div>
+              <div class="j-sub-row" style="justify-content:flex-start;gap:0.4rem;">
+                <span class="j-sname" style="color:var(--warm);">浙江省医疗器械</span>
+                <span class="j-sdesc">薪酬管理及绩效评价工作</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ Experience ═══════════ -->
+<section class="section" id="experience">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon" style="background:var(--gradient-2);">💼</div>
+      <h2 class="section-title">工作详情</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <!-- Data Highlights -->
+    <div class="data-grid">
+      <div class="data-card">
+        <div class="data-number"><span class="count-up" data-target="6">0</span>+</div>
+        <div class="data-unit">年</div>
+        <div class="data-label">HR从业经验</div>
+      </div>
+      <div class="data-card">
+        <div class="data-number"><span class="count-up" data-target="620">0</span>+</div>
+        <div class="data-unit">人</div>
+        <div class="data-label">人才认定</div>
+      </div>
+      <div class="data-card">
+        <div class="data-number"><span class="count-up" data-target="100">0</span>+</div>
+        <div class="data-unit">人</div>
+        <div class="data-label">联培生管理</div>
+      </div>
+      <div class="data-card">
+        <div class="data-number"><span class="count-up" data-target="4">0</span></div>
+        <div class="data-unit">项</div>
+        <div class="data-label">系统从0到1搭建</div>
+      </div>
+    </div>
+
+    <!-- 之江实验室 -->
+    <div class="exp-card zjl">
+      <div class="exp-header">
+        <div>
+          <div class="exp-company">之江实验室</div>
+          <div class="exp-role">人事管理办公室（博士后管理办公室）专员</div>
+        </div>
+        <div class="exp-date-tag">2024.11 — 至今</div>
+      </div>
+      <div class="exp-body">
+        <div class="hl-row">
+          <span class="hl-tag gold">高层次人才服务</span>
+          <span class="hl-text">主导实验室人才认定工作，累计完成省级人才认定<strong>500+</strong>人、市级高层次人才认定<strong>20</strong>人、区级人才认定<strong>100</strong>人；统筹人才居住证办理及落户等配套服务，覆盖国家级领军、省级领军等多层次人才群体</span>
+        </div>
+        <div class="hl-row">
+          <span class="hl-tag purple">博士后管理</span>
+          <span class="hl-text">负责实验室博士后全流程管理（含入站、出站、中期/出站考核及档案管理），协助申报科研资助及人才项目</span>
+        </div>
+        <div class="hl-row">
+          <span class="hl-tag blue">院校合作与联培</span>
+          <span class="hl-text">协助<strong>30+</strong>人次申报浙大兼任博导资格，成功办理行业导师<strong>23</strong>人（浙大7人+杭高院16人）；统筹联培研究生<strong>100+</strong>人全周期管理</span>
+        </div>
+        <div class="hl-row">
+          <span class="hl-tag green">专项项目</span>
+          <span class="hl-text">从0到1搭建实习生线上化全流程管理、科研平台可视化信息等<strong>4项</strong>信息系统，推动管理链路数字化</span>
+        </div>
+        <div class="exp-tags">
+          <span class="exp-pill">人才认定</span>
+          <span class="exp-pill">博士后管理</span>
+          <span class="exp-pill">院校合作</span>
+          <span class="exp-pill">数字化</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 格力电器 -->
+    <div class="exp-card gl">
+      <div class="exp-header">
+        <div>
+          <div class="exp-company">珠海格力电器股份有限公司</div>
+          <div class="exp-role">组织规划专员</div>
+        </div>
+        <div class="exp-date-tag">2022.05 — 2023.03</div>
+      </div>
+      <div class="exp-body">
+        <div class="hl-row">
+          <span class="hl-tag blue">培训体系设计</span>
+          <span class="hl-text">完善公司现有培训三支柱体系，编写相关培训材料以及培训手册，规范培训方面操作标准</span>
+        </div>
+        <div class="hl-row">
+          <span class="hl-tag purple">培训运营</span>
+          <span class="hl-text">牵头通用力类别培训方案全流程实施，包含组织课件开发、讲师安排、培训实施、培训效果评估等</span>
+        </div>
+        <div class="hl-row">
+          <span class="hl-tag green">组织诊断</span>
+          <span class="hl-text">深入了解业务部门运作方式，定期进行组织诊断、组织架构调整及人员编制管控，2022年Q3、Q4所负部门员工满意度上升<strong>5%</strong>、人力系统使用率上升<strong>10%</strong>、人员效能提升<strong>10%</strong></span>
+        </div>
+        <div class="exp-tags">
+          <span class="exp-pill">培训三支柱</span>
+          <span class="exp-pill">组织诊断</span>
+          <span class="exp-pill">效能提升</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 德邦物流 -->
+    <div class="exp-card db">
+      <div class="exp-header">
+        <div>
+          <div class="exp-company">上海德邦物流股份有限公司</div>
+          <div class="exp-role">人力资源规划管培生</div>
+        </div>
+        <div class="exp-date-tag">2020.08 — 2022.04</div>
+      </div>
+      <div class="exp-sub-header">
+        轮岗经历：战略客户部（6个月）→ 德邦大学（8个月）→ 营业部经理（6个月）
+      </div>
+      <div class="exp-body">
+        <div class="hl-row">
+          <span class="hl-tag blue">战略客户部</span>
+          <span class="hl-text">搭建大客户客服培训SOP，萃取共性问题形成培训课件；开展线下培训5次，战略客户开发转化率提升<strong>6%</strong>；维护客户从0收入提升至<strong>120万/月</strong>，实现3个月零投诉</span>
+        </div>
+        <div class="hl-row">
+          <span class="hl-tag purple">德邦大学</span>
+          <span class="hl-text">主导全国储备高级经理课件优化，采访50+优秀经理及10+高管萃取共性内容，全国推广好评率超<strong>97%</strong>；优化培训App页面设置，浏览量环比提升<strong>42%</strong>；担任10+场培训班主任</span>
+        </div>
+        <div class="hl-row">
+          <span class="hl-tag green">营业部经理</span>
+          <span class="hl-text">负责部门经营与团队管理，双11/双12期间收入由8.8万提升至<strong>10.1万</strong>，利润由-0.6万扭亏至<strong>1.7万</strong>；快递员星级均达四星以上，培养2名一线人员晋升</span>
+        </div>
+        <div class="exp-tags">
+          <span class="exp-pill">管培生轮岗</span>
+          <span class="exp-pill">培训体系</span>
+          <span class="exp-pill">经营扭亏</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ Skills ═══════════ -->
+<section class="section" id="skills">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon" style="background:var(--gradient-3);">⚡</div>
+      <h2 class="section-title">核心能力</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="skill-grid">
+      <span class="skill-chip">人才认定与政策申报</span>
+      <span class="skill-chip">博士后全流程管理</span>
+      <span class="skill-chip">院校合作与联培管理</span>
+      <span class="skill-chip">HR系统从0到1搭建</span>
+      <span class="skill-chip">培训体系设计</span>
+      <span class="skill-chip">组织诊断与效能提升</span>
+      <span class="skill-chip">数据分析与可视化</span>
+      <span class="skill-chip">项目管理体系</span>
+      <span class="skill-chip">跨部门协调</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ Footer ═══════════ -->
+<footer class="footer">
+  <div class="container">李思君 · 个人简历 · 2026</div>
+</footer>
+
+<script>
+// ══════ Particle Background ══════
+const canvas = document.getElementById('bgCanvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+const PARTICLE_COUNT = 60;
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+class Particle {
+  constructor() { this.reset(); }
+  reset() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.size = Math.random() * 1.5 + 0.5;
+    this.speedX = (Math.random() - 0.5) * 0.3;
+    this.speedY = (Math.random() - 0.5) * 0.3;
+    this.opacity = Math.random() * 0.4 + 0.1;
+  }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+    if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(108, 142, 239, ${this.opacity})`;
+    ctx.fill();
+  }
+}
+
+for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(new Particle());
+
+function animateParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => { p.update(); p.draw(); });
+  // Draw connections
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 150) {
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.strokeStyle = `rgba(108, 142, 239, ${0.04 * (1 - dist / 150)})`;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+// ══════ Scroll Reveal ══════
+const sections = document.querySelectorAll('.section');
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.08 });
+sections.forEach(s => sectionObserver.observe(s));
+
+// ══════ Nav Dots ══════
+const navDots = document.querySelectorAll('.nav-dot');
+const allSections = ['hero', 'journey', 'experience', 'skills'];
+navDots.forEach(dot => {
+  dot.addEventListener('click', () => {
+    const target = dot.dataset.section;
+    document.getElementById(target).scrollIntoView({ behavior: 'smooth' });
+  });
+});
+window.addEventListener('scroll', () => {
+  let current = '';
+  allSections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top < window.innerHeight / 2) current = id;
+  });
+  navDots.forEach(dot => {
+    dot.classList.toggle('active', dot.dataset.section === current);
+  });
+});
+
+// ══════ Count-up ══════
+const counters = document.querySelectorAll('.count-up');
+const countObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && !entry.target.dataset.counted) {
+      entry.target.dataset.counted = 'true';
+      const target = parseInt(entry.target.dataset.target);
+      const duration = 1500;
+      const start = performance.now();
+      function update(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        entry.target.textContent = Math.round(target * eased);
+        if (progress < 1) requestAnimationFrame(update);
+      }
+      requestAnimationFrame(update);
+    }
+  });
+}, { threshold: 0.5 });
+counters.forEach(c => countObserver.observe(c));
+
+</script>
+</body>
+</html>
